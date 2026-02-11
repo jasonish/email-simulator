@@ -1,0 +1,60 @@
+# IMAP
+set imap_user = "alice@example.com"
+set imap_pass = "password"
+set folder = "imap://localhost:1143/"
+set spoolfile = "imap://localhost:1143/INBOX"
+
+# SMTP
+set smtp_url = "smtp://alice@localhost:587/"
+set smtp_pass = "password"
+set from = "alice@example.com"
+set realname = "Alice"
+
+# No SSL/TLS
+set ssl_starttls = no
+set ssl_force_tls = no
+
+# Address book
+set alias_file = "aliases.alice"
+source "aliases.alice"
+
+# IMAP behavior
+unset imap_passive
+set imap_check_subscribed
+set timeout = 10
+set mail_check = 5
+
+# Display
+set date_format = "%Y-%m-%d %H:%M"
+set index_format = "%4C %Z %d %-20.20L  %s"
+set sort = reverse-date
+set pager_index_lines = 10
+set pager_stop = yes
+set markers = no
+set wrap = 120
+
+# Colors - status bar
+color status      white        blue
+color indicator   white        cyan
+
+# Colors - index
+color index       green        default  "~N"
+color index       brightgreen  default  "~U"
+color index       red          default  "~D"
+color index       yellow       default  "~F"
+
+# Colors - message body
+color normal      default      default
+color header      brightcyan   default  "^From:"
+color header      brightgreen  default  "^To:"
+color header      brightyellow default  "^Subject:"
+color header      brightblue   default  "^Date:"
+color header      magenta      default  "^Cc:"
+color body        brightred    default  "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}"
+color body        brightblue   default  "https?://[^ >)\"]*"
+color quoted      cyan         default
+color quoted1     yellow       default
+color quoted2     green        default
+color signature   brightblack  default
+color attachment  magenta      default
+color tree        cyan         default

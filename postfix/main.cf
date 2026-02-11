@@ -1,0 +1,38 @@
+# Hostname
+myhostname = mail.example.com
+mydomain = example.com
+myorigin = $mydomain
+
+# Network
+inet_interfaces = all
+inet_protocols = ipv4
+
+# No local delivery, only virtual
+mydestination =
+
+# Disable TLS entirely
+smtpd_tls_security_level = none
+smtp_tls_security_level = none
+
+# Virtual mailbox delivery
+virtual_mailbox_domains = example.com
+virtual_mailbox_base = /var/mail/vhosts
+virtual_mailbox_maps = lmdb:/etc/postfix/vmailbox
+virtual_uid_maps = static:5000
+virtual_gid_maps = static:5000
+
+# Accept mail from Docker networks and localhost
+mynetworks = 127.0.0.0/8, 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16
+
+# Only accept mail for our virtual domains
+smtpd_recipient_restrictions = reject_unauth_destination, permit_mynetworks, reject
+
+# Logging to stdout for Docker
+maillog_file = /dev/stdout
+
+compatibility_level = 3.6
+
+# SASL authentication (enabled per-service in master.cf)
+smtpd_sasl_type = cyrus
+smtpd_sasl_path = smtpd
+smtpd_sasl_local_domain = $mydomain

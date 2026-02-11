@@ -1,0 +1,19 @@
+services:
+  smtp:
+    build: ./postfix
+    ports:
+      - "${SMTP_PORT:-2525}:25"
+      - "${SUBMISSION_PORT:-587}:587"
+    volumes:
+      - maildata:/var/mail/vhosts
+
+  imap:
+    build: ./dovecot
+    ports:
+      - "${IMAP_PORT:-1143}:143"
+      - "${POP3_PORT:-1110}:110"
+    volumes:
+      - maildata:/var/mail/vhosts
+
+volumes:
+  maildata:
