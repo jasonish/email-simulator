@@ -40,6 +40,12 @@ Port 25 is unauthenticated (relay from Docker networks). Port 587 requires SMTP 
 Find the Docker bridge interface:
 
 ```bash
+./print-if.sh
+```
+
+Manual equivalent:
+
+```bash
 docker network inspect email-sandbox_default --format '{{.Id}}' \
   | cut -c1-12 | xargs -I{} echo "br-{}"
 ```
