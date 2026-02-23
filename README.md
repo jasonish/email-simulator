@@ -1,4 +1,4 @@
-# Mail Simulator
+# Email Sandbox
 
 A Docker Compose mail infrastructure for testing network traffic inspection tools like Suricata. All protocols run in plain text (no TLS/SSL). Only `@example.com` recipients are accepted.
 
@@ -40,7 +40,7 @@ Port 25 is unauthenticated (relay from Docker networks). Port 587 requires SMTP 
 Find the Docker bridge interface:
 
 ```bash
-docker network inspect mail-simulator_default --format '{{.Id}}' \
+docker network inspect email-sandbox_default --format '{{.Id}}' \
   | cut -c1-12 | xargs -I{} echo "br-{}"
 ```
 
@@ -49,13 +49,6 @@ Capture on the bridge (sees container ports):
 ```bash
 sudo tcpdump -i br-XXXXXXXXXXXX -nn -X port 25 or port 587 or port 143 or port 110
 ```
-
-## Adding Users
-
-1. Add a mailbox in `postfix/vmailbox`
-2. Add credentials in `dovecot/passwd`
-3. Add a `saslpasswd2` line in `postfix/entrypoint.sh`
-4. Rebuild: `docker compose down && docker compose build && docker compose up -d`
 
 ## Teardown
 
